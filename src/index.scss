@@ -1,0 +1,366 @@
+@use '@carbon/react';
+
+/* ==========================================================================
+   CARBON PULSE DESIGN SYSTEM (CPDS v1.0)
+   Manual CSS Overrides & Custom Design Tokens on top of IBM Carbon v11
+   ========================================================================== */
+
+:root,
+.cds--g100,
+.cds--g90,
+.cds--g10,
+.cds--white {
+  /* Custom Brand Tokens (Electric Cyan & Indigo Pulse instead of IBM Blue #0f62fe) */
+  --cpds-brand-primary: #00d4ff;
+  --cpds-brand-primary-hover: #00b8e6;
+  --cpds-brand-primary-active: #0099bf;
+  --cpds-brand-secondary: #7c3aed;
+  --cpds-brand-secondary-hover: #6d28d9;
+  --cpds-brand-accent: #10b981;
+  --cpds-brand-gradient: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+  --cpds-surface-glass: rgba(22, 22, 29, 0.78);
+  --cpds-border-glow: rgba(0, 212, 255, 0.32);
+
+  /* Geometry & Radius Tokens (Overriding Carbon's strict 0px sharp corners) */
+  --cpds-radius-sm: 6px;
+  --cpds-radius-md: 10px;
+  --cpds-radius-lg: 14px;
+  --cpds-radius-pill: 9999px;
+
+  /* Typography Overrides */
+  --cpds-font-display: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --cpds-font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --cpds-font-mono: 'IBM Plex Mono', monospace;
+
+  /* Elevation & Glow Tokens */
+  --cpds-shadow-card: 0 8px 28px -6px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --cpds-shadow-hover: 0 14px 36px -6px rgba(0, 212, 255, 0.18), 0 0 0 1px rgba(0, 212, 255, 0.45);
+}
+
+/* Override Carbon Interactive Tokens When Custom Overrides Are Active */
+body.cpds-overrides-enabled .cds--g100,
+body.cpds-overrides-enabled .cds--g90 {
+  --cds-interactive: #00d4ff;
+  --cds-button-primary: #00b8e6;
+  --cds-button-primary-hover: #00d4ff;
+  --cds-button-primary-active: #008fb3;
+  --cds-focus: #00d4ff;
+  --cds-link-primary: #38bdf8;
+  --cds-link-primary-hover: #7dd3fc;
+  --cds-border-interactive: #00d4ff;
+  --cds-background: #0b0d13;
+  --cds-layer-01: #131722;
+  --cds-layer-02: #1c2230;
+  --cds-layer-03: #252d40;
+  --cds-layer-hover-01: #1a2030;
+  --cds-layer-hover-02: #242c3d;
+}
+
+body.cpds-overrides-enabled .cds--g10,
+body.cpds-overrides-enabled .cds--white {
+  --cds-interactive: #0284c7;
+  --cds-button-primary: #0284c7;
+  --cds-button-primary-hover: #0369a1;
+  --cds-button-primary-active: #075985;
+  --cds-focus: #0284c7;
+  --cds-link-primary: #0284c7;
+  --cds-border-interactive: #0284c7;
+}
+
+/* Base Body Styling */
+body {
+  margin: 0;
+  font-family: var(--cpds-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   1. MANUAL CSS OVERRIDE: UI Shell Header (Glassmorphism + Gradient Accent Bar)
+   ========================================================================== */
+body.cpds-overrides-enabled .cds--header {
+  background: rgba(11, 13, 19, 0.86) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.24) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.cpds-overrides-enabled .cds--header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--cpds-brand-gradient);
+  pointer-events: none;
+}
+
+body.cpds-overrides-enabled .cds--header__name {
+  font-family: var(--cpds-font-display) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   2. MANUAL CSS OVERRIDE: Carbon Buttons (Rounded Geometry + Gradient Primary)
+   ========================================================================== */
+body.cpds-overrides-enabled .cds--btn {
+  border-radius: var(--cpds-radius-md) !important;
+  font-family: var(--cpds-font-display);
+  font-weight: 600;
+  transition: transform 0.16s cubic-bezier(0.2, 0, 0.38, 0.9), box-shadow 0.16s ease, background 0.16s ease !important;
+}
+
+body.cpds-overrides-enabled .cds--btn--primary {
+  background: linear-gradient(135deg, #00b8e6 0%, #6366f1 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0, 184, 230, 0.3);
+}
+
+body.cpds-overrides-enabled .cds--btn--primary:hover {
+  background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.45);
+}
+
+body.cpds-overrides-enabled .cds--btn--secondary {
+  border: 1px solid rgba(0, 212, 255, 0.35) !important;
+}
+
+/* ==========================================================================
+   3. MANUAL CSS OVERRIDE: Carbon Tiles & Clickable Cards
+   ========================================================================== */
+body.cpds-overrides-enabled .cds--tile {
+  border-radius: var(--cpds-radius-lg) !important;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: var(--cpds-shadow-card);
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.38, 0.9), border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+body.cpds-overrides-enabled .cds--tile--clickable:hover,
+body.cpds-overrides-enabled .cpds-post-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: var(--cpds-shadow-hover);
+}
+
+/* ==========================================================================
+   4. MANUAL CSS OVERRIDE: Carbon Inputs, Search, Dropdowns, Modals & Accordions
+   ========================================================================== */
+body.cpds-overrides-enabled .cds--text-input,
+body.cpds-overrides-enabled .cds--search-input,
+body.cpds-overrides-enabled .cds--text-area,
+body.cpds-overrides-enabled .cds--select-input,
+body.cpds-overrides-enabled .cds--list-box__field {
+  border-radius: var(--cpds-radius-sm) !important;
+}
+
+body.cpds-overrides-enabled .cds--modal-container {
+  border-radius: var(--cpds-radius-lg) !important;
+  border: 1px solid var(--cpds-border-glow);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+body.cpds-overrides-enabled .cds--data-table-container {
+  border-radius: var(--cpds-radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+body.cpds-overrides-enabled .cds--tag {
+  border-radius: var(--cpds-radius-pill) !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+body.cpds-overrides-enabled .cds--inline-notification,
+body.cpds-overrides-enabled .cds--toast-notification,
+body.cpds-overrides-enabled .cds--actionable-notification {
+  border-radius: var(--cpds-radius-md) !important;
+}
+
+body.cpds-overrides-enabled .cds--content-switcher-btn {
+  border-radius: var(--cpds-radius-sm) !important;
+}
+
+/* ==========================================================================
+   5. APPLICATION LAYOUT & CUSTOM COMPONENT UTILITIES
+   ========================================================================== */
+.cpds-app-wrapper {
+  min-height: 100vh;
+  padding-top: 3rem;
+}
+
+.cpds-hero-banner {
+  position: relative;
+  padding: 2.25rem 2rem;
+  margin-bottom: 1.75rem;
+  border-radius: var(--cpds-radius-lg);
+  background: radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.22), transparent 45%),
+              radial-gradient(circle at 15% 80%, rgba(0, 212, 255, 0.18), transparent 50%),
+              var(--cds-layer-01);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  overflow: hidden;
+}
+
+.cpds-hero-title {
+  font-family: var(--cpds-font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.15;
+}
+
+.cpds-gradient-text {
+  background: var(--cpds-brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cpds-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cpds-kpi-value {
+  font-family: var(--cpds-font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0.35rem 0;
+}
+
+.cpds-filter-bar {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  background: var(--cds-layer-01);
+  border-radius: var(--cpds-radius-lg);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+@media (max-width: 960px) {
+  .cpds-filter-bar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cpds-feed-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .cpds-feed-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cpds-post-card {
+  margin-bottom: 1rem;
+  padding: 1.35rem !important;
+  position: relative;
+}
+
+.cpds-post-card--pinned {
+  border-left: 4px solid var(--cpds-brand-primary) !important;
+}
+
+.cpds-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.cpds-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cpds-brand-gradient);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--cpds-font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.cpds-post-title {
+  font-family: var(--cpds-font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.35;
+}
+
+.cpds-post-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.cpds-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem 0;
+}
+
+.cpds-swatch-card {
+  border-radius: var(--cpds-radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: var(--cds-layer-01);
+}
+
+.cpds-swatch-color {
+  height: 76px;
+  width: 100%;
+}
+
+.cpds-swatch-meta {
+  padding: 0.75rem;
+  font-family: var(--cpds-font-mono);
+  font-size: 0.8rem;
+}
+
+.cpds-token-diff-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.cpds-token-diff-table th,
+.cpds-token-diff-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  text-align: left;
+}
+
+.cpds-token-diff-table th {
+  font-family: var(--cpds-font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+}
